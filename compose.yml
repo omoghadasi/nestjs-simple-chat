@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017" 
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - dev-network
+
+  nest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nest
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/chatDB
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - mongo
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+
+volumes:
+  mongo-data:
