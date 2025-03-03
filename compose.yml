@@ -8,7 +8,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
     ports:
-      - "27017:27017" 
+      - '27017:27017'
     volumes:
       - mongo-data:/data/db
     networks:
@@ -21,9 +21,9 @@ services:
     container_name: nest
     environment:
       - NODE_ENV=development
-      - MONGO_URI=mongodb://mongo:27017/chatDB
+      - MONGO_URI=mongodb://root:root@mongo:27017/chatDB
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
     depends_on:
