@@ -5,7 +5,7 @@ import { ChatRoomService } from './chatroom.service';
 export class ChatRoomController {
   constructor(private readonly chatRoomService: ChatRoomService) {}
 
-  @Post()
+  @Post('new')
   createRoom(@Body() body: { name: string }) {
     return this.chatRoomService.createRoom(body.name);
   }
@@ -18,7 +18,7 @@ export class ChatRoomController {
     return this.chatRoomService.sendMessage(chatRoomId, body.sender, body.text);
   }
 
-  @Get(':id/message')
+  @Get(':id/messages')
   getMessages(@Param('id') chatRoomId: string) {
     return this.chatRoomService.getMessages(chatRoomId);
   }
